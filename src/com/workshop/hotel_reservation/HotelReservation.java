@@ -66,9 +66,9 @@ public class HotelReservation {
 	
 	     //printing the hotel with cheapest price
 	     String result = min(cost_lake, cost_bridge, cost_ridge);
-	     int result1 = minrating(cost_lake, cost_bridge, cost_ridge);
+	   //  int result1 = minrating(cost_lake, cost_bridge, cost_ridge);
 	     int result2=totalPrice(cost_lake, cost_bridge, cost_ridge);
-	     System.out.println("Cheapest price is of "+result+" ,Rating "+result1+", Total :"+totalPrice(cost_lake, cost_bridge, cost_ridge));
+	     System.out.println("Best Rated Hotel is "+result+" , Total :"+totalPrice(cost_lake, cost_bridge, cost_ridge));
 	     
     	}
     	
@@ -84,39 +84,16 @@ public class HotelReservation {
 		}
 	}
 
-    //implementing the min method to find hotel with cheapest price
-      public static  String min(int a, int b, int c) {
-		if(a < c && a < c) {
-			return (lake.getHotelName());
-		}else if(b<a && b < c) {
-			return (bridge.getHotelName());
-		}else if(a==b ) {
-			return (lake.getHotelName());
-		}else if(b==c) {
-			return (bridge.getHotelName());
-		}else if(a==c) {
-			return (lake.getHotelName());
-		}
-		else {
-			return (ridge.getHotelName());
-		}
-	}
-    
-      //method to find hotel with minimum rating
-      public static  Integer minrating(int a, int b, int c) {
- 		if(a < c && a < c) {
- 			return (lake.getRating());
+    //implementing the min method to find best rated hotel
+     public static  String min(int a, int b, int c) {
+ 		if(a < c && a < b) {
+ 			return (ridge.getHotelName());
  		}else if(b<a && b < c) {
- 			return (bridge.getRating());
- 		}else if(a==b ) {
- 			return (lake.getRating());
- 		}else if(b==c) {
- 			return (bridge.getRating());
- 		}else if(a==c) {
- 			return (lake.getRating());
+ 			return (ridge.getHotelName());
  		}
  		else {
- 			return (ridge.getRating());
+ 			return (ridge.getHotelName());
  		}
-    }	
+ 	}
+     
 }
