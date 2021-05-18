@@ -1,39 +1,80 @@
 package com.workshop.hotel_reservation;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 public class HotelReservation {
 	//declaring variables for respective hotels
 	 private static Hotel lake, bridge, ridge;
 
-	public static void main(String[] args) {
+	 public static void main(String[] args) throws IOException {
 		System.out.println("Welcome To Hotel Reservation Program");
-		 hotelDetails();
-	}
-	
-	//method to set details for each hotel
-	  public static void hotelDetails() {
-	 		System.out.println("Hotels and their Prices for Regular Customer \n");
-	 		
-	 		//setting values for lakewood
-	 	    lake = new Hotel("Lakewood");
-	 	    lake.setRegularWeekDay(110);
-	 	    lake.setRegularWeekEnd(90);
-	 		System.out.println("HotelName: "+ lake.getHotelName()+"\n"+"Regular WeekDay Price: "+lake.getRegularWeekDay()+"$\n"+"Regular WeekEnd Price: "+lake.getRegularWeekEnd()+"$\n");
-	 		
-	 		//setting values for bridgewood
-	 	    bridge = new Hotel("Bridgewood");
-	 	    bridge.setRegularWeekDay(160);
-	 	    bridge.setRegularWeekEnd(60);;
-	 		System.out.println("HotelName: "+ bridge.getHotelName()+"\n"+"Regular WeekDay Price: "+bridge.getRegularWeekDay()+"$\n"+"Regular WeekEnd Price: "+bridge.getRegularWeekEnd()+"$\n");
-	 		
-	 		//setting values for ridgewood   
-	 	    ridge = new Hotel("Ridgewood");
-	 	    ridge.setRegularWeekDay(220);
-	 	    ridge.setRegularWeekEnd(150);
-	 		System.out.println("HotelName: "+ ridge.getHotelName()+"\n"+"Regular WeekDay Price: "+ridge.getRegularWeekDay()+"$\n"+"Regular WeekEnd Price: "+ridge.getRegularWeekEnd()+"$\n");
-	 			
-	 	}
- }
+		System.out.println("Enter date  ex. 16Mar2020(mon)");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String date = bf.readLine();
 
+		
+		//setting values for lakewood
+	    lake = new Hotel("Lakewood");
+	    lake.setRegularWeekDay(110);
+	    
+		 		
+		//setting values for bridgewood
+	    bridge = new Hotel("Bridgewood");
+	    bridge.setRegularWeekDay(160);
+	   
+				
+		//setting values for ridgewood   
+	    ridge = new Hotel("Ridgewood");
+	    ridge.setRegularWeekDay(220);
+	    
+		
+		 //int index = date.indexOf(":");
+	     //String type = date.substring(0, index);
+	     int cost_lake = 0, cost_bridge = 0, cost_ridge = 0;
+	     int day_index_start = 0, day_index_end = 0;
+	     
+	    while (day_index_start != -1) {
+		     day_index_start = date.indexOf("(", day_index_start + 1);
+		     day_index_end = date.indexOf(")", day_index_end + 1);
+		
+		     if (day_index_start != -1) {
+			     String day = date.substring(day_index_start + 1, day_index_end);
+				    
+					     cost_lake += lake.getRegularWeekDay();
+					     cost_bridge += bridge.getRegularWeekDay();
+					     cost_ridge += ridge.getRegularWeekDay();
+				     
+			     }
+		     }  
+	    
+	     System.out.println("\nLakewood : "+cost_lake+"$");
+	     System.out.println("Bridgewood : "+cost_bridge+"$");
+	     System.out.println("Ridgewood : "+cost_ridge+"$");
+	
+	     String result = min(cost_lake, cost_bridge, cost_ridge);
+	     System.out.println("Cheapest price is of "+result);
+    	}
+    	
+     //implementing the min method
+     private static String min(int a, int b, int c) {
+	     if (a < b && a < c) {
+	    	 return lake.getHotelName();
+	     } else if (b < a && b < c) {
+	    	 return bridge.getHotelName();
+	     } else if (c < a && c < b) {
+	    	 return ridge.getHotelName();
+	     } else if (a == b || b == c) {
+	    	 return bridge.getHotelName();
+	     } else if (c == a) {
+	    	 return ridge.getHotelName();
+	     } else {
+	    	 return lake.getHotelName();
+	     } 
+	}
+}
+
+
+	
 
