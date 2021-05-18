@@ -59,7 +59,7 @@ public class HotelReservation {
 	     System.out.println("Cheapest price is of "+result);
      	}
      	
-   //implementing the min method to find hotel with cheapest price
+   //implementing the min method to find hotel with cheapest price at given date
      public static  String min(int a, int b, int c) {
  		if(a < c && a < c) {
  			return lake.getHotelName();
