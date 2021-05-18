@@ -47,12 +47,13 @@ public class Hotel {
 	public void setRewardedWeekDay(int rewardeeWeekDay) {
 		this.rewardedWeekDay = rewardeeWeekDay;
 	}
+
 	public int getRewardedWeekEnd() {
 		return rewardedWeekEnd;
 	}
 
-	public void setRewardedWeekEnd(int rewardedWeekEnd) {
-		this.rewardedWeekEnd = rewardedWeekEnd;
+	public void setRewardedWeekEnd(int rewardeeWeekEnd) {
+		this.rewardedWeekEnd = rewardeeWeekEnd;
 	}	
 	
 }
