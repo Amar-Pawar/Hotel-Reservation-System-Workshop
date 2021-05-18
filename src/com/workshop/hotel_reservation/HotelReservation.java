@@ -40,7 +40,7 @@ public class HotelReservation {
  	    ridge.setRewardedWeekEnd(40);
  	    
  	   
- 	    System.out.println("Enter customer type : date ex.Reward:16Mar2020(mon),17Mar2020(tue)");
+ 	    System.out.println("Enter customer type : date ex.Regular:16Mar2020(mon),17Mar2020(tue)");
  	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
  	    String date = bf.readLine();
  	    dateValidation(date);
@@ -52,56 +52,53 @@ public class HotelReservation {
  	    int cost_lake = 0, cost_bridge = 0, cost_ridge = 0;
  	    int day_index_start = 0, day_index_end = 0;
  	    //using while loop to check date  and accordingly get hotel for reward customer 
- 	    while (day_index_start != -1) {
+ 	   while (day_index_start != -1) {
  		     day_index_start = date.indexOf("(", day_index_start + 1);
  		     day_index_end = date.indexOf(")", day_index_end + 1);
  		
  		     if (day_index_start != -1) {
  			     String day = date.substring(day_index_start + 1, day_index_end);
  			     if (day.equalsIgnoreCase("sun") || day.equalsIgnoreCase("sat")) {
- 				     if (type.equalsIgnoreCase("reward")) {
+ 				     if (type.equalsIgnoreCase("regular")) {
+ 				    	 cost_lake += lake.getRegularWeekEnd();
+ 					     cost_bridge += bridge.getRegularWeekEnd();
+ 					     cost_ridge += ridge.getRegularWeekEnd();
+ 				    	 
+ 				     } else {
  				    	 cost_lake += lake.getRewardedWeekEnd();
  					     cost_bridge += bridge.getRewardedWeekEnd();
  					     cost_ridge += ridge.getRewardedWeekEnd();
- 				     } else {
- 					     cost_lake += lake.getRegularWeekEnd();
- 					     cost_bridge += bridge.getRegularWeekEnd();
- 					     cost_ridge += ridge.getRegularWeekEnd();
  				     }
  			     } else {
- 				     if (type.equalsIgnoreCase("reward")) {
+ 				     if (type.equalsIgnoreCase("regular")) {
+ 				    	 cost_lake += lake.getRegularWeekDay();
+ 					     cost_bridge += bridge.getRegularWeekDay();
+ 					     cost_ridge += ridge.getRegularWeekDay();				     
+ 				     } else {
  				    	 cost_lake += lake.getRewardedWeekDay();
  					     cost_bridge += bridge.getRewardedWeekDay();
  					     cost_ridge += ridge.getRewardedWeekDay();
- 					     
- 				     } else {
- 				    	 cost_lake += lake.getRegularWeekDay();
- 					     cost_bridge += bridge.getRegularWeekDay();
- 					     cost_ridge += ridge.getRegularWeekDay();
  				     }
  			     }
  		     }
- 		    
  	    }
- 	    
- 	    	//printing costs of hotel
  		     System.out.println("\nLakewood : "+cost_lake+"$");
  		     System.out.println("Bridgewood : "+cost_bridge+"$");
  		     System.out.println("Ridgewood : "+cost_ridge+"$");
- 		    
- 		    int result = Stream.of(cost_lake, cost_bridge, cost_ridge)
+ 		     
+ 		     int result = Stream.of(cost_lake, cost_bridge, cost_ridge)
  				     .min(Comparator.comparing(Integer::valueOf))
  				     .get();
  			System.out.println("\nCheapestPrice: "+result+"$");
  		     
- 		     String result1 = min(cost_lake, cost_bridge, cost_ridge);
+ 		     String result1 = minPrice(cost_lake, cost_bridge, cost_ridge);
  		     System.out.println("\nCheapest price is of "+result1);
  	    }else
  	    	System.out.println("Please Enter valid date");
- 	    }
+ 	  }
 
- 	    //implementing the min method to find best hotel for reward customer
- 	    private static String min(int a, int b, int c) {
+ 	    //implementing the min method
+ 	    private static String minPrice(int a, int b, int c) {
  		     if (a < b && a < c) {
  		    	 return "Hotel :"+lake.getHotelName()+" with rating "+lake.getRating()+" Total Price : "+a+"$";
  		     } else if (b < a && b < c) {
@@ -116,13 +113,12 @@ public class HotelReservation {
  		    	 return "Hotel : "+lake.getHotelName()+" with rating "+lake.getRating()+" Total Price : "+a+"$";
  		     }
  	    }
- 	    //method to validate date using regex
- 	   public static boolean dateValidation(String date) {
+ 	    
+ 	    public static boolean dateValidation(String date) {
  			String datePattern="^[A-Z a-z]{1,}[:][0-9]{1,}[A-Z a-z]{3,}[1-9]{1}[0-9]{3}[(][A-Z a-z]{3}[)][,][0-9]{1,}[A-Z a-z]{3,}[1-9]{1}[0-9]{3}[(][A-Z a-z]{3}[)]$";
  			Pattern P=Pattern.compile(datePattern);
  	        Matcher m=P.matcher(date);
  	        return m.matches();	
  			
  		}
- 	}
- 	 
+ }
